@@ -11,7 +11,6 @@ from .config import Config
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 
-
 def get_aiohttp_app(config: Config) -> web.Application:
     app = web.Application()
 

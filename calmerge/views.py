@@ -7,10 +7,8 @@ from .calendars import (
     set_calendar_metadata,
 )
 
-
 async def healthcheck(request: web.Request) -> web.Response:
     return web.Response(text="")
-
 
 async def calendar(request: web.Request) -> web.Response:
     config = request.app["config"]
@@ -23,7 +21,7 @@ async def calendar(request: web.Request) -> web.Response:
     if calendar_config.auth and not calendar_config.auth.validate_header(
         request.headers.get("Authorization", "")
     ):
-        raise web.HTTPNotFound()
+        raise web.HTTPUnauthorized(headers={hdrs.WWW_AUTHENTICATE: "Basic"})
 
     calendar = await fetch_merged_calendar(calendar_config)
 
@@ -42,7 +40,6 @@ async def calendar(request: web.Request) -> web.Response:
         },
     )
 
-
 async def calendar_listing(request: web.Request) -> web.Response:
     config = request.app["config"]
 
@@ -52,9 +49,7 @@ async def calendar_listing(request: web.Request) -> web.Response:
         raise web.HTTPUnauthorized(headers={hdrs.WWW_AUTHENTICATE: "Basic"})
 
     response = aiohttp_jinja2.render_template("listing.html", request, {})
-    response.headers["Content-Security-Policy"] = "default-src 'self'"
     return response
-
 
 async def calendar_html(request: web.Request) -> web.Response:
     config = request.app["config"]
@@ -67,7 +62,7 @@ async def calendar_html(request: web.Request) -> web.Response:
     if calendar_config.auth and not calendar_config.auth.validate_header(
         request.headers.get("Authorization", "")
     ):
-        raise web.HTTPNotFound()
+        raise web.HTTPUnauthorized(headers={hdrs.WWW_AUTHENTICATE: "Basic"})
 
     response = aiohttp_jinja2.render_template(
         "calendar.html", request, {"calendar": calendar_config}
