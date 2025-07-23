@@ -72,7 +72,4 @@ async def calendar_html(request: web.Request) -> web.Response:
     response = aiohttp_jinja2.render_template(
         "calendar.html", request, {"calendar": calendar_config}
     )
-    response.headers["Content-Security-Policy"] = (
-        "default-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; script-src 'self' https://cdn.jsdelivr.net; font-src data:"
-    )
     return response
