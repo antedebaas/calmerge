@@ -21,9 +21,15 @@ def calendar_url(context: dict, calendar_config: CalendarConfig) -> URL:
 
     url = request.url.with_path(calendar_url.path)
 
-    if config.listing.include_credentials and calendar_config.auth is not None:
+    if calendar_config.auth is None:
+        return url.with_scheme("https")
+    else:
         url = url.with_user(calendar_config.auth.username).with_password(
             calendar_config.auth.password
         )
+    # if config.listing.enabled and config.listing.auth is not None:
+    #     url = url.with_user(config.listing.auth.username).with_password(
+    #         config.listing.auth.password
+    #     )
 
-    return url
+    return url.with_scheme("https")

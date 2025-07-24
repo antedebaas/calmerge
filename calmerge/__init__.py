@@ -36,7 +36,7 @@ def get_aiohttp_app(config: Config) -> web.Application:
     app.add_routes(
         [
             web.static("/static", STATIC_DIR),
-            web.get("/.health/", views.healthcheck, name="healthcheck"),
+            web.get("/health", views.healthcheck, name="healthcheck"),
             web.get("/{slug}.ics", views.calendar, name="calendar"),
             web.get("/{slug}.html", views.calendar_html, name="calendar-html"),
         ]

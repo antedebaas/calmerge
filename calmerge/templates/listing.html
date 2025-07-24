@@ -32,7 +32,7 @@
           {% endif %}
           <td><a href="{{ url('calendar-html', slug=calendar.slug) }}">preview</a></td>
           <td>
-            <a href="{{ calendar|calendar_url }}">{{ (calendar|calendar_url).scheme|default('http', true) }}</a>
+            <a href="{{ calendar|calendar_url }}">{{ (calendar|calendar_url).scheme|default('https', true) }}</a>
             <a href="{{ (calendar|calendar_url).with_scheme('webcal') }}">webcal</a>
           </td>
         </tr>

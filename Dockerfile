@@ -31,5 +31,5 @@ RUN poetry install --only=main
 RUN python -m compileall -q $VIRTUAL_ENV calmerge
 RUN touch /app/calendars.toml && \
     chown calmerge:calmerge /app/calendars.toml
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:3000/health')" || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:3000/health')" || exit 1
 CMD ["calmerge", "serve"]
