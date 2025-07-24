@@ -7,8 +7,7 @@ from aiohttp import BasicAuth
 from pydantic import BaseModel, Field, HttpUrl, field_validator
 from pydantic_core import PydanticCustomError
 
-MAX_OFFSET = 3650
-
+MAX_OFFSET = 36500
 
 class AuthConfig(BaseModel):
     username: str
@@ -31,7 +30,6 @@ class AuthConfig(BaseModel):
         return compare_digest(
             self.as_basic_auth().encode(), parsed_auth_header.encode()
         )
-
 
 class CalendarConfig(BaseModel):
     slug: str
@@ -76,12 +74,10 @@ class CalendarConfig(BaseModel):
 
         return offset_days
 
-
 class ListingConfig(BaseModel):
     enabled: bool = False
     auth: AuthConfig | None = None
     include_credentials: bool = False
-
 
 class Config(BaseModel):
     calendars: list[CalendarConfig] = Field(alias="calendar", default_factory=list)

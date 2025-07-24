@@ -14,7 +14,7 @@ A utility to merge calendar feeds together, optionally offsetting by a given num
 
 Calendars are served based on their [slug](#configuration), at `/{slug}.ics`.
 
-Additional events cen be added at offsets from the original date using the `offset_days` configuration. Events can only be offset ±10 years.
+Additional events cen be added at offsets from the original date using the `offset_days` configuration. Events can only be offset ±100 years.
 
 ### Static
 
